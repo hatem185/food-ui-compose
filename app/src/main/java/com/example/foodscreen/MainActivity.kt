@@ -10,12 +10,11 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -61,54 +60,49 @@ fun FoodScreen() {
     }
 }
 
+val circularCornerRadius = RoundedCornerShape(20.dp, 0.dp, 20.dp, 0.dp)
+const val mainColor = 0xFF406A52
+
 @Composable
 fun SearchBar() {
     Card(
-        shape = RoundedCornerShape(20.dp, 0.dp, 20.dp, 0.dp),
+        shape = circularCornerRadius,
+        modifier = Modifier.width(332.dp),
+        backgroundColor = Color(0xFFECECEC)
     ) {
-        Row(
-            Modifier
-                .background(Color(0xFFECECEC))
-                .width(332.dp),
-            verticalAlignment = Alignment.CenterVertically,
 
-            ) {
-            val text = remember { mutableStateOf(TextFieldValue("")) }
-            TextField(
-                leadingIcon = {
-                    Icon(
-                        imageVector = Icons.Default.Search,
-                        contentDescription = "emailIcon"
-                    )
-                },
-                value = text.value,
-                onValueChange = { text.value = it },
-                colors = TextFieldDefaults.textFieldColors(
-                    backgroundColor = Color(0xFFECECEC),
-                    focusedIndicatorColor = Color.Transparent,
-                    unfocusedIndicatorColor = Color.Transparent, cursorColor = Color(0xFF406A52)
-                ),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .wrapContentHeight()
-                    .padding(5.dp, 0.dp),
-                placeholder = {
-                    Text(
-                        "Chicken nuggets with potatoes",
-                        fontSize = 14.sp,
-                        color = Color(0xFF999999)
-                    )
-                }
-            )
+        var text by remember { mutableStateOf(TextFieldValue("")) }
+        TextField(
+            leadingIcon = {
+                Icon(imageVector = Icons.Default.Search, contentDescription = "Search")
+            },
+            value = text,
+            onValueChange = { text = it },
+            colors = TextFieldDefaults.textFieldColors(
+                backgroundColor = Color(0xFFECECEC),
+                focusedIndicatorColor = Color.Transparent,
+                unfocusedIndicatorColor = Color.Transparent,
+                cursorColor = Color(mainColor),
 
-
-        }
+            ),
+            modifier = Modifier
+                .fillMaxWidth()
+                .wrapContentHeight()
+                .padding(5.dp, 0.dp),
+            placeholder = {
+                Text(
+                    "Chicken nuggets with potatoes",
+                    fontSize = 14.sp,
+                    color = Color(0xFF000000)
+                )
+            },
+        )
     }
 }
 
 @Composable
 fun MainContent() {
-    Card(shape = RoundedCornerShape(0.dp, 20.dp, 0.dp, 20.dp)) {
+    Card(shape = circularCornerRadius) {
         Column(
             Modifier
                 .background(Color(0xFFECECEC))
@@ -119,7 +113,7 @@ fun MainContent() {
             Text(
                 text = "Here are the relevant results for your search for \"Chicken Nuggets with Potatoes\":",
                 fontSize = 16.sp,
-                color = Color(0xFF406A52),
+                color = Color(mainColor),
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(20.dp)
@@ -159,7 +153,7 @@ fun MainContent() {
 
 @Composable
 fun NavBottomBar() {
-    Card(shape = RoundedCornerShape(20.dp, 0.dp, 20.dp, 0.dp)) {
+    Card(shape = circularCornerRadius) {
         Row(
             modifier = Modifier
                 .background(Color(0xFFECECEC))
