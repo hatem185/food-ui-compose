@@ -83,6 +83,7 @@ fun SearchBar() {
                 focusedIndicatorColor = Color.Transparent,
                 unfocusedIndicatorColor = Color.Transparent,
                 cursorColor = Color(mainColor),
+                textColor = Color.Black,
 
             ),
             modifier = Modifier
@@ -96,6 +97,7 @@ fun SearchBar() {
                     color = Color(0xFF000000)
                 )
             },
+
         )
     }
 }
